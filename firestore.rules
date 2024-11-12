@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isCoach() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'coach';
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || request.auth.uid == userId;
+    }
+
+    // Appointments collection
+    match /appointments/{appointmentId} {
+      allow read: if isAuthenticated() &&
+        (isAdmin() || 
+         resource.data.coachId == request.auth.uid || 
+         resource.data.customerId == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
+    // Availabilities collection
+    match /availabilities/{availabilityId} {
+      allow read: if isAuthenticated();
+      allow create: if isCoach() && request.resource.data.coachId == request.auth.uid;
+      allow update: if isAdmin() || 
+        (isCoach() && 
+         resource.data.coachId == request.auth.uid && 
+         resource.data.status == 'pending');
+      allow delete: if isAdmin();
+    }
+  }
+}

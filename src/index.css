@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --namat-green: #7dda55;
+  --namat-green-light: hsl(99, 76%, 96%);
+  --namat-text: #004250;
+  
+  --background: 0 0% 100%;
+  --foreground: 187 100% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 187 100% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 187 100% 16%;
+  --primary: 99 61% 59%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 99 76% 96%;
+  --secondary-foreground: 187 100% 16%;
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 187 100% 16%;
+  --accent: 99 76% 96%;
+  --accent-foreground: 187 100% 16%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 89.8%;
+  --input: 0 0% 89.8%;
+  --ring: 99 61% 59%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 99 61% 59%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 99 76% 96%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 99 76% 96%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 99 61% 59%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-[#004250] antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-[#004250];
+  }
+  p {
+    @apply text-[#004250];
+  }
+  label {
+    @apply text-[#004250];
+  }
+  .text-muted-foreground {
+    @apply text-[#004250]/60;
+  }
+}
